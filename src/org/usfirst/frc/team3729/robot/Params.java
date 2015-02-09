@@ -9,22 +9,11 @@ public class Params {
     public static final int port_r1 = 3;
     public static final int port_c0 = 4;
     public static final int port_c1 = 5;
-    public static final int port_elev0 = 6;
-    public static final int port_elev1 = 7;
+    public static final int port_shooter = 6;
     //!Relays -Relay-
-    public static final int port_arm0 = 0;
-    public static final int port_arm1 = 1;
-    public static final int port_intake = 2;
+    public static final int port_intake = 0;
     //!Limit Switches -Digital I/O-
-    public static final int port_armslimit = 0;
-    public static final int port_armslimit_safety = 1;
-    public static final int port_encoder_reset = 2;
-    //!Encoders -Digital I/O-
-    public static final int port_encoder_elevator_aChannel = 3;
-    public static final int port_encoder_elevator_bChannel = 4;
-    //!Sonar -Analog In-
-    public static final int port_sonar0 = 0;
-    public static final int port_sonar1 = 1;
+    public static final int port_intakelimit = 0;
     
     //Adjustments
     //! Increment at which we ramp output from the axes
@@ -34,10 +23,6 @@ public class Params {
     //!Max/Min robot speeds
     public static final double MAX_SPEED = 0.85;
     public static final double MIN_SPEED = -0.85;
-    public static final double creep_speed = .25;
-    public static final double elevator_speed = .55;
-    //!Elevator levels
-    public static final int[] level = {0,210,450,850,1100,1200};
     
     //!Testing information
     public static final boolean testing_drive = false;
