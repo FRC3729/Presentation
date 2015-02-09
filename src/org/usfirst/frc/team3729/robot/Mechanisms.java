@@ -3,6 +3,7 @@ package org.usfirst.frc.team3729.robot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Mechanisms {
 	
@@ -44,20 +45,25 @@ public class Mechanisms {
 		} else if (_input.getButton(1, 5)) {
 			shooter_state = false;
 		} 
-		if (_input.getButton(1, 2) && shooter_speed <= 1.0) {
+		if (_input.getButton(1, 3) && shooter_speed <= 1.0) {
 			shooter_speed = shooter_speed + .01;
-		} else if (_input.getButton(1, 3) && shooter_speed >= -1.0) {
+		} else if (_input.getButton(1, 2) && shooter_speed >= -1.0) {
 			shooter_speed = shooter_speed - .01;
 		}
 		if (shooter_state) {
-			shooter.set(shooter_speed);
+			setspeed(shooter_speed);
+		} else {
+			setspeed(0.0);
 		}
+	}
+	private void setspeed(double speed) {
+		shooter.set(speed);
 	}
 	
 	public void intake() {
 		if (_input.getButton(1, 1)) {
 			intake.set(Relay.Value.kForward);
-		} else if (!limit_intake.get()) {
+		} else if (limit_intake.get()) {
 			intake.set(Relay.Value.kReverse);
 		} else {
 			intake.set(Relay.Value.kOff);
