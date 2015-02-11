@@ -33,7 +33,10 @@ public class Robot extends SampleRobot {
         System.out.println("This robot complies with Asimov's Laws of Robotics:");
         System.out.println("\t~> 1. A robot may not injure a human being or,\n\t      through inaction, allow a human being to come to harm.");
         System.out.println("\t~> 2. A robot must obey the orders given to it by human beings,\n\t      except where such orders would conflict with the First Law.");
-        System.out.println("\t~> 3. A robot must protect its own existence as long as\n\t      such protection does not conflict with the First or Second Laws.");
+        System.out.println("\t~> 3. A robot must protect its own existence as long as\n\t      such protection does not conflict with the First or Second Laws.");        
+    
+        _drive.start();
+        _mech.start();
     }
 
     /**
@@ -48,17 +51,12 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl(){
         System.out.println("in OpControl");
-        drive.start();
-        mech.start();
         while (isEnabled())
         {
-            //!Drive
-//        	_drive.Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
-            
-            //!Mechanisms
-//        	_mech.shoot();
-//        	_mech.intake();
-            
+        	//!Run Threads
+        	_drive.run();
+        	_mech.run();
+
             //!Testing values
             if (Params.testing_mech) {_mech.test();}
             if (Params.testing_input) {_input.test(); Timer.delay(0.1);}
@@ -68,9 +66,9 @@ public class Robot extends SampleRobot {
     public void test(){
     	while (isTest() && isEnabled()) {
     		LiveWindow.run();
-    		if (Params.testing_mech) {_mech.test(); Timer.delay(0.1);}
+    		if (Params.testing_mech) {_mech.test();}
             if (Params.testing_input) {_input.test(); Timer.delay(0.1);}
-            if (Params.testing_drive) {_drive.test(); Timer.delay(0.1);}
+            if (Params.testing_drive) {_drive.test();}
     	}
     }
 }

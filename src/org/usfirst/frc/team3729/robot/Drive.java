@@ -33,9 +33,7 @@ public class Drive extends Thread {
         return INSTANCE;
     }
     public void run() {
-    	while (_bot.isEnabled()) {
-    		Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
-    	}
+    	Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
     }
     
     //Drive values for testing

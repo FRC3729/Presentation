@@ -35,14 +35,12 @@ public class Mechanisms extends Thread{
         return INSTANCE;
     }
 	public void run() {
-		while (_bot.isEnabled()) {
-			shoot();
-			intake();
-			SmartDashboard.putBoolean("DB/LED 0", shooter_state);
-			SmartDashboard.putBoolean("DB/Button 0", shooter_state);
-			SmartDashboard.putString("DB/String 0", "shooter speed: " + shooter_speed);
-			SmartDashboard.putBoolean("DB/LED 1", limit_intake.get());
-		}
+		shoot();
+		intake();
+		SmartDashboard.putBoolean("DB/LED 0", shooter_state);
+		SmartDashboard.putBoolean("DB/Button 0", shooter_state);
+		SmartDashboard.putString("DB/String 0", "shooter speed: " + shooter_speed);
+		SmartDashboard.putBoolean("DB/LED 1", limit_intake.get());
 	}
 	public void test() {
 		System.out.println("Shooter power: " + shooter_state);
