@@ -2,8 +2,9 @@ package org.usfirst.frc.team3729.robot;
 
 import edu.wpi.first.wpilibj.Talon;
 
-public class Drive {
+public class Drive extends Thread {
 	Input _input;
+	Robot _bot;
 	
     private static Drive INSTANCE = null;
     
@@ -31,12 +32,22 @@ public class Drive {
         
         return INSTANCE;
     }
+    public void run() {
+    	while (_bot.isEnabled()) {
+    		Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
+    	}
+    }
     
     //Drive values for testing
     public void test() {
     	System.out.println("left : " + leftMotor0.get() + ", " + leftMotor1.get());
     	System.out.println("Right : " + rightMotor0.get() + ", " + rightMotor1.get());
     	System.out.println("Center : " + centerMotor0.get() + ", " + centerMotor1.get());
+    	try {
+			Thread.sleep(100);
+		} catch (Exception e){
+			System.out.println(e);
+		}
     }
     
     //Drive Modes
@@ -66,7 +77,7 @@ public class Drive {
     	this.Hdrive(z, y, x);
     }
     //!Stopped
-    public void stop() {
+    public void stopmotors() {
         leftMotor0.set(0.0);
         leftMotor1.set(0.0);
         rightMotor0.set(0.0);

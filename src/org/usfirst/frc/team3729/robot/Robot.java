@@ -12,12 +12,14 @@ public class Robot extends SampleRobot {
     Mechanisms _mech;
     Timer auto_timer;
     CameraServer server;
+    Thread drive;
+    Thread mech;
 
     protected void disabled()
     {
     	System.out.println("in Disabled");
-    	_drive.stop();
-    	_mech.stop();
+    	_drive.stopmotors();
+    	_mech.stopmotors();
     }
 
     protected void robotInit()
@@ -46,19 +48,21 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl(){
         System.out.println("in OpControl");
+        drive.start();
+        mech.start();
         while (isEnabled())
         {
             //!Drive
-        	_drive.Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
+//        	_drive.Hdrive(_input.getAxis(0,0), _input.getAxis(0,1), _input.getAxis(1,0));
             
             //!Mechanisms
-        	_mech.shoot();
-        	_mech.intake();
+//        	_mech.shoot();
+//        	_mech.intake();
             
             //!Testing values
-            if (Params.testing_mech) {_mech.test(); Timer.delay(0.1);}
+            if (Params.testing_mech) {_mech.test();}
             if (Params.testing_input) {_input.test(); Timer.delay(0.1);}
-            if (Params.testing_drive) {_drive.test(); Timer.delay(0.1);}
+            if (Params.testing_drive) {_drive.test();}
         }
     }
     public void test(){

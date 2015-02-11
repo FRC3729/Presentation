@@ -27,7 +27,7 @@ public class Params {
     //!Testing information
     public static final boolean testing_drive = false;
     public static final boolean testing_input = false;
-    public static final boolean testing_mech = true;
+    public static final boolean testing_mech = false;
     
     //Useful Methods
     //!Slow the change of a value

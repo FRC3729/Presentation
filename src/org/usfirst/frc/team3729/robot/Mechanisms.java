@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Mechanisms {
+public class Mechanisms extends Thread{
 	
 	private Talon shooter;
 	private Relay intake;
 	private DigitalInput limit_intake;
 	Input _input;
+	Robot _bot;
 	
 	private double shooter_speed;
 	private boolean shooter_state;
@@ -33,10 +34,25 @@ public class Mechanisms {
         
         return INSTANCE;
     }
+	public void run() {
+		while (_bot.isEnabled()) {
+			shoot();
+			intake();
+			SmartDashboard.putBoolean("DB/LED 0", shooter_state);
+			SmartDashboard.putBoolean("DB/Button 0", shooter_state);
+			SmartDashboard.putString("DB/String 0", "shooter speed: " + shooter_speed);
+			SmartDashboard.putBoolean("DB/LED 1", limit_intake.get());
+		}
+	}
 	public void test() {
 		System.out.println("Shooter power: " + shooter_state);
 		System.out.println("Shooter speed: " + shooter_speed);
 		System.out.println("Intake limit: " + limit_intake.get());
+		try {
+			Thread.sleep(100);
+		} catch (Exception e){
+			System.out.println(e);
+		}
 	}
 	
 	public void shoot() {
@@ -55,6 +71,11 @@ public class Mechanisms {
 		} else {
 			setspeed(0.0);
 		}
+		try {
+			Thread.sleep(100);
+		} catch (Exception e){
+			System.out.println(e);
+		}
 	}
 	private void setspeed(double speed) {
 		shooter.set(speed);
@@ -70,7 +91,7 @@ public class Mechanisms {
 		}
 	}
 	
-	public void stop() {
+	public void stopmotors() {
 		shooter.set(0.0);
 		intake.set(Relay.Value.kOff);
 	}
