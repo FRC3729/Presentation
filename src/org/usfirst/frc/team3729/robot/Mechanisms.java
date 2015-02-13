@@ -25,7 +25,7 @@ public class Mechanisms extends Thread{
 		_input = new Input();
 		
 		shooter_state = false;
-		shooter_speed = 0.55;
+		shooter_speed = 0.75;
 	}
 	
 	public static Mechanisms getInstance() {
@@ -40,7 +40,7 @@ public class Mechanisms extends Thread{
 		SmartDashboard.putBoolean("DB/LED 0", shooter_state);
 		SmartDashboard.putBoolean("DB/Button 0", shooter_state);
 		SmartDashboard.putString("DB/String 0", "shooter speed: " + shooter_speed);
-		SmartDashboard.putBoolean("DB/LED 1", limit_intake.get());
+		SmartDashboard.putBoolean("DB/LED 1", !limit_intake.get());
 	}
 	public void test() {
 		System.out.println("Shooter power: " + shooter_state);
@@ -59,10 +59,10 @@ public class Mechanisms extends Thread{
 		} else if (_input.getButton(1, 5)) {
 			shooter_state = false;
 		} 
-		if (_input.getButton(1, 3) && shooter_speed <= 1.0) {
-			shooter_speed = shooter_speed + .01;
-		} else if (_input.getButton(1, 2) && shooter_speed >= -1.0) {
-			shooter_speed = shooter_speed - .01;
+		if (_input.getButton(1, 3) && shooter_speed < 1.0) {
+			shooter_speed = shooter_speed + .05;
+		} else if (_input.getButton(1, 2) && shooter_speed > -1.0) {
+			shooter_speed = shooter_speed - .05;
 		}
 		if (shooter_state) {
 			setspeed(shooter_speed);
